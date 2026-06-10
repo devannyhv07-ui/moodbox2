@@ -16,12 +16,12 @@
   --bg: #0f0e17; --card: #1a1a2e; --card2: #16213e;
 }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: #fff; min-height: 100vh; padding-bottom: 80px; overflow-x: hidden; }
- 
+
 .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; z-index: 0; }
 .blob1 { width: 300px; height: 300px; background: var(--purple); top: -80px; left: -80px; }
 .blob2 { width: 250px; height: 250px; background: var(--teal); bottom: 100px; right: -60px; }
 .blob3 { width: 200px; height: 200px; background: var(--coral); top: 40%; left: 30%; }
- 
+
 /* LOGIN */
 #login-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; background: var(--bg); z-index: 999; }
 .login-glow { width: 100px; height: 100px; border-radius: 30px; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 44px; margin-bottom: 20px; box-shadow: 0 0 40px rgba(108,92,231,0.5); animation: float 3s ease-in-out infinite; }
@@ -38,19 +38,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .btn-login:active { transform: scale(0.97); }
 .login-hint { font-size: 12px; color: #555; margin-top: 18px; text-align: center; }
 .login-hint span { color: var(--purple-l); font-weight: 600; }
- 
+
 /* TAB BAR */
 .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22,33,62,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.06); display: flex; z-index: 100; height: 68px; padding: 0 8px; }
 .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: none; background: none; cursor: pointer; padding: 8px 0; font-size: 10px; font-weight: 600; color: #555; transition: color 0.2s; letter-spacing: 0.3px; }
 .tab-btn.active { color: var(--purple-l); }
 .tab-btn .icon { font-size: 22px; }
 .tab-btn.active .tab-pill { background: rgba(162,155,254,0.15); border-radius: 12px; padding: 4px 16px; }
- 
+
 /* APP */
 #app { display: none; position: relative; z-index: 1; }
 .screen { display: none; padding: 20px; max-width: 480px; margin: 0 auto; }
 .screen.active { display: block; }
- 
+
 /* HEADER */
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .header-sub { font-size: 13px; color: #888; margin-bottom: 3px; }
@@ -61,11 +61,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .logout-menu-name { font-size: 13px; font-weight: 600; color: #ccc; padding: 8px 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 6px; }
 .logout-btn-menu { width: 100%; border: none; background: none; padding: 10px 12px; border-radius: 10px; font-size: 14px; color: var(--coral); font-weight: 600; cursor: pointer; text-align: left; transition: background 0.15s; }
 .logout-btn-menu:hover { background: rgba(225,112,85,0.12); }
- 
+
 /* CARDS */
 .card { background: var(--card); border-radius: 20px; padding: 18px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.06); }
 .card-label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
- 
+
 /* MOODS */
 .mood-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .mood-btn { border-radius: 16px; padding: 14px 8px; border: 1.5px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; background: rgba(255,255,255,0.04); width: 100%; transition: transform 0.15s, border-color 0.15s; }
@@ -73,57 +73,57 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .mood-btn.selected { border-width: 2px; transform: scale(1.04); }
 .mood-emoji { font-size: 26px; }
 .mood-label { font-size: 11px; font-weight: 700; }
- 
+
 .sesion-card { border-radius: 20px; padding: 18px; margin-bottom: 14px; background: linear-gradient(135deg, rgba(108,92,231,0.25), rgba(0,184,148,0.15)); border: 1px solid rgba(108,92,231,0.4); position: relative; overflow: hidden; }
 .sesion-card::before { content:''; position: absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:rgba(108,92,231,0.2); }
 .sesion-label { font-size: 11px; font-weight: 700; color: var(--purple-l); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 .sesion-texto { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 14px; }
- 
+
 .stats-row { display: flex; gap: 10px; margin-bottom: 14px; }
 .stat-card { flex: 1; border-radius: 18px; padding: 16px 12px; text-align: center; position: relative; overflow: hidden; }
 .stat-num { font-size: 30px; font-weight: 800; }
 .stat-label { font-size: 11px; font-weight: 600; margin-top: 2px; opacity: 0.8; }
- 
+
 .btn-primary { border: none; border-radius: 14px; padding: 15px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; color: #fff; background: linear-gradient(135deg, var(--purple), var(--purple-d)); box-shadow: 0 8px 24px rgba(108,92,231,0.35); transition: transform 0.15s; }
 .btn-primary:active { transform: scale(0.97); }
 .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 .btn-primary.success { background: linear-gradient(135deg, var(--teal), #00cec9); box-shadow: 0 8px 24px rgba(0,184,148,0.35); }
- 
+
 .page-title { font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
 .seccion-label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
- 
+
 .cabina-card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
 .cabina-card.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.12); }
 .cabina-card.disabled { opacity: 0.45; cursor: not-allowed; }
 .cabina-nombre { font-size: 15px; font-weight: 700; color: #fff; }
 .cabina-ubicacion { font-size: 12px; color: #888; margin-top: 3px; }
 .badge { padding: 5px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; }
- 
+
 .duracion-row { display: flex; gap: 10px; margin-bottom: 24px; }
 .duracion-btn { flex: 1; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); background: var(--card); text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
 .duracion-btn.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.15); }
 .duracion-min { font-size: 16px; font-weight: 800; color: #fff; }
 .duracion-precio { font-size: 13px; color: #888; margin-top: 4px; }
 .duracion-btn.selected .duracion-precio { color: var(--purple-l); }
- 
+
 .confirm-card { border-radius: 16px; padding: 16px; margin-top: 14px; background: rgba(0,184,148,0.12); border: 1px solid rgba(0,184,148,0.3); }
 .confirm-titulo { color: var(--teal-l); font-weight: 700; font-size: 14px; margin-bottom: 4px; }
 .confirm-sub { color: #aaa; font-size: 13px; }
- 
+
 .bar-chart { display: flex; justify-content: space-between; align-items: flex-end; height: 100px; margin-top: 8px; }
 .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
 .bar-bg { width: 65%; height: 80px; display: flex; align-items: flex-end; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; }
 .bar-fill { width: 100%; border-radius: 6px; transition: height 0.6s ease; }
 .bar-dia { font-size: 11px; color: #666; font-weight: 600; }
 .bar-num { font-size: 10px; color: var(--purple-l); font-weight: 700; }
- 
+
 .mood-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .mood-bar-emoji { font-size: 20px; flex-shrink: 0; }
 .mood-bar-label { width: 72px; font-size: 13px; font-weight: 600; color: #ccc; flex-shrink: 0; }
 .mood-bar-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
 .mood-bar-fill { height: 100%; border-radius: 4px; }
 .mood-bar-count { width: 28px; font-size: 12px; font-weight: 700; text-align: right; flex-shrink: 0; }
- 
+
 .plan-card { background: var(--card2); border-radius: 16px; padding: 16px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.07); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
 .plan-card.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.12); }
 .plan-card.destacado { border-color: rgba(108,92,231,0.4); }
@@ -132,7 +132,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .plan-nombre { font-size: 15px; font-weight: 700; color: #fff; }
 .plan-detalle { font-size: 12px; color: #888; margin-top: 3px; }
 .plan-precio { font-size: 17px; font-weight: 800; color: var(--purple-l); }
- 
+
 /* HISTORIAL */
 .historial-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .historial-item:last-child { border-bottom: none; }
@@ -142,22 +142,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .historial-fecha { font-size: 12px; color: #666; margin-top: 2px; }
 .historial-sesion { font-size: 12px; color: var(--purple-l); margin-top: 2px; }
 .empty-state { text-align: center; padding: 24px; color: #555; font-size: 14px; }
- 
+
 .reserva-item { background: var(--card2); border-radius: 14px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
 .reserva-info .reserva-nombre { font-size: 14px; font-weight: 700; color: #fff; }
 .reserva-info .reserva-det { font-size: 12px; color: #888; margin-top: 3px; }
 .reserva-fecha { font-size: 11px; color: #555; text-align: right; }
- 
+
 .toast { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-80px); background: linear-gradient(135deg,var(--teal),#00cec9); color: #fff; padding: 12px 24px; border-radius: 99px; font-size: 14px; font-weight: 700; z-index: 9999; transition: transform 0.35s cubic-bezier(.34,1.56,.64,1); white-space: nowrap; box-shadow: 0 8px 24px rgba(0,184,148,0.4); }
 .toast.show { transform: translateX(-50%) translateY(0); }
- 
+
 .mt16{margin-top:16px} .mt20{margin-top:20px}
- 
+
 /* PERFIL MÉDICO */
 .perfil-avatar { width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; margin: 0 auto 16px; box-shadow: 0 8px 24px rgba(108,92,231,0.4); }
 .perfil-nombre { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 4px; }
 .perfil-usuario { font-size: 13px; color: #888; text-align: center; margin-bottom: 20px; }
- 
+
 .med-field { margin-bottom: 14px; }
 .med-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
 .med-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: #fff; outline: none; transition: border-color 0.2s; }
@@ -166,7 +166,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 select.med-input option { background: #1a1a2e; }
 .med-row { display: flex; gap: 10px; }
 .med-row .med-field { flex: 1; }
- 
+
 .tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; min-height: 32px; }
 .tag { background: rgba(108,92,231,0.2); border: 1px solid rgba(108,92,231,0.4); border-radius: 99px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--purple-l); display: flex; align-items: center; gap: 6px; }
 .tag-x { cursor: pointer; color: #888; font-size: 14px; line-height: 1; }
@@ -175,47 +175,68 @@ select.med-input option { background: #1a1a2e; }
 .tag-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #fff; outline: none; }
 .tag-input:focus { border-color: var(--purple-l); }
 .tag-add { background: var(--purple); border: none; border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 18px; cursor: pointer; font-weight: 700; }
- 
+
 .alerta-medica { background: rgba(225,112,85,0.12); border: 1px solid rgba(225,112,85,0.3); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .alerta-icon { font-size: 20px; flex-shrink: 0; }
 .alerta-texto { font-size: 13px; color: #fab1a0; line-height: 1.5; }
- 
+
 .cabina-detalle { font-size: 11px; color: #666; margin-top: 2px; }
 .cabina-mapa { font-size: 12px; color: var(--purple-l); margin-top: 4px; cursor: pointer; }
- 
+
 .btn-guardar { background: linear-gradient(135deg, var(--teal), #00cec9); border: none; border-radius: 14px; padding: 15px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; color: #fff; box-shadow: 0 8px 24px rgba(0,184,148,0.35); transition: transform 0.15s; margin-top: 8px; }
 .btn-guardar:active { transform: scale(0.97); }
- 
+
 .info-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.06); border-radius: 99px; padding: 5px 12px; font-size: 12px; color: #ccc; font-weight: 500; margin: 3px; }
 </style>
 </head>
 <body>
- 
+
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
- 
+
 <div class="toast" id="toast"></div>
- 
+
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-glow">🧠</div>
   <div class="login-titulo">MoodBox</div>
   <div class="login-sub">Tu espacio de bienestar emocional</div>
-  <div class="login-box">
+
+  <!-- TABS LOGIN/REGISTRO -->
+  <div style="display:flex;gap:0;margin-bottom:20px;background:rgba(255,255,255,0.06);border-radius:12px;padding:4px;width:100%;max-width:360px;">
+    <button id="tab-login-btn" onclick="switchAuthTab('login')" style="flex:1;border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;background:var(--purple);color:#fff;transition:all 0.2s;">Iniciar sesión</button>
+    <button id="tab-reg-btn" onclick="switchAuthTab('registro')" style="flex:1;border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;background:none;color:#888;transition:all 0.2s;">Crear cuenta</button>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="login-box" id="form-login">
     <div class="input-label">Usuario</div>
-    <input class="input-field" id="input-user" type="text" placeholder="Ej: admin" autocomplete="username">
+    <input class="input-field" id="input-user" type="text" placeholder="Tu usuario" autocomplete="username">
     <div class="input-label">Contraseña</div>
     <input class="input-field" id="input-pass" type="password" placeholder="••••••••" autocomplete="current-password">
     <div class="login-error" id="login-error">⚠️ Usuario o contraseña incorrectos</div>
     <button class="btn-login" onclick="iniciarSesion()">Entrar →</button>
-    <div class="login-hint">Demo: <span>admin</span> / <span>1234</span></div>
+  </div>
+
+  <!-- REGISTRO FORM -->
+  <div class="login-box" id="form-registro" style="display:none;">
+    <div class="input-label">Nombre completo</div>
+    <input class="input-field" id="reg-nombre" type="text" placeholder="Ej: María González">
+    <div class="input-label">Usuario</div>
+    <input class="input-field" id="reg-user" type="text" placeholder="Ej: maria01" autocomplete="username">
+    <div class="input-label">Contraseña</div>
+    <input class="input-field" id="reg-pass" type="password" placeholder="Mínimo 4 caracteres">
+    <div class="input-label">Confirmar contraseña</div>
+    <input class="input-field" id="reg-pass2" type="password" placeholder="Repetí tu contraseña">
+    <div class="login-error" id="reg-error">⚠️ Error al registrar</div>
+    <button class="btn-login" onclick="registrarUsuario()">Crear cuenta →</button>
   </div>
 </div>
- 
+
 <!-- APP -->
 <div id="app">
- 
+
   <!-- INICIO -->
   <div class="screen active" id="screen-inicio">
     <div class="header">
@@ -233,26 +254,26 @@ select.med-input option { background: #1a1a2e; }
         </div>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-label">¿Cómo te sentís hoy?</div>
       <div class="mood-grid" id="mood-grid"></div>
     </div>
- 
+
     <div id="sesion-card" style="display:none;" class="sesion-card">
       <div class="sesion-label">✨ Sesión recomendada</div>
       <div class="sesion-texto" id="sesion-texto"></div>
       <button class="btn-primary" onclick="goTo('reservar')">Ir a reservar →</button>
     </div>
- 
+
     <div class="stats-row" id="stats-inicio"></div>
- 
+
     <div class="card">
       <div class="card-label">📋 Historial de estados</div>
       <div id="historial-lista"></div>
     </div>
   </div>
- 
+
   <!-- RESERVAR -->
   <div class="screen" id="screen-reservar">
     <div class="page-title">Reservar cabina</div>
@@ -279,7 +300,7 @@ select.med-input option { background: #1a1a2e; }
       <div id="reservas-lista"></div>
     </div>
   </div>
- 
+
   <!-- PROGRESO -->
   <div class="screen" id="screen-progreso">
     <div class="page-title">Mi progreso</div>
@@ -300,16 +321,16 @@ select.med-input option { background: #1a1a2e; }
       </div>
     </div>
   </div>
- 
+
   <!-- PERFIL MÉDICO -->
   <div class="screen" id="screen-perfil">
     <div class="page-title">Perfil médico</div>
- 
+
     <div class="card">
       <div class="perfil-avatar" id="perfil-avatar-big">TU</div>
       <div class="perfil-nombre" id="perfil-nombre-txt">Usuario</div>
       <div class="perfil-usuario" id="perfil-usuario-txt">@usuario</div>
- 
+
       <div class="med-row">
         <div class="med-field">
           <div class="med-label">🎂 Edad</div>
@@ -326,12 +347,12 @@ select.med-input option { background: #1a1a2e; }
           </select>
         </div>
       </div>
- 
+
       <div class="med-field">
         <div class="med-label">📱 Contacto de emergencia</div>
         <input class="med-input" id="med-contacto" type="text" placeholder="Nombre · Teléfono">
       </div>
- 
+
       <div class="med-field">
         <div class="med-label">🩸 Tipo de sangre</div>
         <select class="med-input" id="med-sangre">
@@ -343,7 +364,7 @@ select.med-input option { background: #1a1a2e; }
         </select>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-label">🚨 Alergias</div>
       <div class="tag-container" id="tags-alergias"></div>
@@ -352,7 +373,7 @@ select.med-input option { background: #1a1a2e; }
         <button class="tag-add" onclick="addTag('alergias','input-alergia')">+</button>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-label">💊 Medicamentos actuales</div>
       <div class="tag-container" id="tags-medicamentos"></div>
@@ -361,7 +382,7 @@ select.med-input option { background: #1a1a2e; }
         <button class="tag-add" onclick="addTag('medicamentos','input-medicamento')">+</button>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-label">🏥 Condiciones médicas</div>
       <div class="tag-container" id="tags-condiciones"></div>
@@ -370,22 +391,29 @@ select.med-input option { background: #1a1a2e; }
         <button class="tag-add" onclick="addTag('condiciones','input-condicion')">+</button>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-label">📝 Notas médicas adicionales</div>
       <textarea class="med-input" id="med-notas" rows="3" placeholder="Información adicional para el personal de salud..."></textarea>
     </div>
- 
+
     <button class="btn-guardar" onclick="guardarPerfil()">💾 Guardar perfil médico</button>
+
+    <!-- GESTIÓN DE PLAN -->
+    <div class="card mt16" id="plan-gestion-card">
+      <div class="card-label">💳 Mi plan actual</div>
+      <div id="plan-info-perfil"></div>
+    </div>
+
     <div style="height:16px;"></div>
   </div>
- 
+
   <!-- CABINAS MAP -->
   <div class="screen" id="screen-cabinas">
     <div class="page-title">📍 Ubicación de cabinas</div>
     <div id="mapa-cabinas"></div>
   </div>
- 
+
   <nav class="tab-bar">
     <button class="tab-btn active" onclick="goTo('inicio')" id="tab-inicio">
       <div class="tab-pill"><span class="icon">🏠</span></div><span>Inicio</span>
@@ -401,13 +429,9 @@ select.med-input option { background: #1a1a2e; }
     </button>
   </nav>
 </div>
- 
+
 <script>
 // ── DATOS BASE ──
-const USUARIOS = [
-  { usuario:"admin",      pass:"1234",    nombre:"Administrador" },
-  { usuario:"estudiante", pass:"mood123", nombre:"Estudiante" },
-];
 const MOODS = [
   { id:"estresado", label:"Estresado", emoji:"😤", bg:"rgba(225,112,85,0.18)",  border:"rgba(225,112,85,0.5)",  color:"#fab1a0", sesion:"Respiración 4-7-8 · 15 min" },
   { id:"ansioso",   label:"Ansioso",   emoji:"😰", bg:"rgba(9,132,227,0.18)",   border:"rgba(9,132,227,0.5)",   color:"#74b9ff", sesion:"Meditación guiada · 15 min" },
@@ -422,31 +446,34 @@ const CABINAS = [
   { id:"C", nombre:"Cabina C", ubicacion:"Cafetería Central", piso:"Planta baja", referencia:"Al fondo derecho de la cafetería, cerca de las ventanas", coords:"10.3372° N, 84.4378° W", libre:true },
 ];
 const PLANES = [
-  { nombre:"Sesión suelta",       precio:"₡2,000",   detalle:"15 minutos · pago único",  destacado:false },
-  { nombre:"Suscripción semanal", precio:"₡7,500",   detalle:"Acceso ilimitado 7 días",  destacado:false },
-  { nombre:"Suscripción mensual", precio:"₡25,000",  detalle:"Acceso ilimitado 30 días", destacado:true  },
-  { nombre:"Suscripción anual",   precio:"₡220,000", detalle:"El mejor valor del año",   destacado:false },
+  { nombre:"Sesión suelta",       precio:"₡2,000",   detalle:"15 minutos · pago único",  dias:0,   destacado:false },
+  { nombre:"Suscripción semanal", precio:"₡7,500",   detalle:"Acceso ilimitado 7 días",  dias:7,   destacado:false },
+  { nombre:"Suscripción mensual", precio:"₡25,000",  detalle:"Acceso ilimitado 30 días", dias:30,  destacado:true  },
+  { nombre:"Suscripción anual",   precio:"₡220,000", detalle:"El mejor valor del año",   dias:365, destacado:false },
 ];
 const DIAS_SEMANA = ["D","L","M","X","J","V","S"];
- 
+
 // ── STORAGE ──
 function getData(key) { try { return JSON.parse(localStorage.getItem(key)) || null; } catch{ return null; } }
 function setData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
- 
-function getUserKey(key) { return `mb_${usuarioActual.usuario}_${key}`; }
-function getUserData(key) { return getData(getUserKey(key)); }
-function setUserData(key, val) { setData(getUserKey(key), val); }
- 
+function getUserKey(k) { return `mb_${usuarioActual.usuario}_${k}`; }
+function getUserData(k) { return getData(getUserKey(k)); }
+function setUserData(k, v) { setData(getUserKey(k), v); }
+
+// ── USUARIOS (guardados en localStorage) ──
+function getUsuarios() { return getData('mb_usuarios') || [{ usuario:'admin', pass:'1234', nombre:'Administrador' }]; }
+function saveUsuarios(lista) { setData('mb_usuarios', lista); }
+
 // ── ESTADO ──
 let usuarioActual = null, cabinaSel = null, duracionSel = 15;
- 
+
 // ── TOAST ──
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
- 
+
 // ── SALUDO ──
 function getSaludo() {
   const h = new Date().getHours();
@@ -454,19 +481,54 @@ function getSaludo() {
   if (h < 19) return 'Buenas tardes 👋';
   return 'Buenas noches 👋';
 }
- 
+
+// ── AUTH TABS ──
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('form-login').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('form-registro').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('tab-login-btn').style.background = isLogin ? 'var(--purple)' : 'none';
+  document.getElementById('tab-login-btn').style.color = isLogin ? '#fff' : '#888';
+  document.getElementById('tab-reg-btn').style.background = isLogin ? 'none' : 'var(--purple)';
+  document.getElementById('tab-reg-btn').style.color = isLogin ? '#888' : '#fff';
+}
+
+// ── REGISTRO ──
+function registrarUsuario() {
+  const nombre = document.getElementById('reg-nombre').value.trim();
+  const usuario = document.getElementById('reg-user').value.trim().toLowerCase();
+  const pass = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  const errEl = document.getElementById('reg-error');
+
+  if (!nombre || !usuario || !pass) { errEl.textContent = '⚠️ Completá todos los campos'; errEl.style.display='block'; return; }
+  if (pass.length < 4) { errEl.textContent = '⚠️ La contraseña debe tener al menos 4 caracteres'; errEl.style.display='block'; return; }
+  if (pass !== pass2) { errEl.textContent = '⚠️ Las contraseñas no coinciden'; errEl.style.display='block'; return; }
+
+  const usuarios = getUsuarios();
+  if (usuarios.find(u => u.usuario === usuario)) { errEl.textContent = '⚠️ Ese usuario ya existe'; errEl.style.display='block'; return; }
+
+  errEl.style.display = 'none';
+  usuarios.push({ usuario, pass, nombre });
+  saveUsuarios(usuarios);
+  showToast('✅ Cuenta creada, podés iniciar sesión');
+  switchAuthTab('login');
+  document.getElementById('input-user').value = usuario;
+}
+
 // ── LOGIN ──
 function iniciarSesion() {
-  const u = document.getElementById('input-user').value.trim();
+  const u = document.getElementById('input-user').value.trim().toLowerCase();
   const p = document.getElementById('input-pass').value;
-  const found = USUARIOS.find(x => x.usuario === u && x.pass === p);
+  const usuarios = getUsuarios();
+  const found = usuarios.find(x => x.usuario === u && x.pass === p);
   if (!found) { document.getElementById('login-error').style.display = 'block'; return; }
   usuarioActual = found;
   setData('mb_session', found.usuario);
   document.getElementById('login-error').style.display = 'none';
   mostrarApp();
 }
- 
+
 function mostrarApp() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
@@ -476,7 +538,7 @@ function mostrarApp() {
   document.getElementById('saludo-texto').textContent = getSaludo();
   buildApp();
 }
- 
+
 function cerrarSesion() {
   setData('mb_session', null);
   usuarioActual = null; cabinaSel = null; duracionSel = 15;
@@ -485,7 +547,6 @@ function cerrarSesion() {
   document.getElementById('input-user').value = '';
   document.getElementById('input-pass').value = '';
   document.getElementById('logout-menu').classList.remove('open');
-  // reset UI
   document.getElementById('mood-grid').innerHTML = '';
   document.getElementById('cabinas-list').innerHTML = '';
   document.getElementById('bar-chart').innerHTML = '';
@@ -493,24 +554,25 @@ function cerrarSesion() {
   document.getElementById('sesion-card').style.display = 'none';
   goTo('inicio');
 }
- 
-// Auto-login si hay sesión guardada
+
+// Auto-login
 window.addEventListener('DOMContentLoaded', () => {
   const saved = getData('mb_session');
   if (saved) {
-    const found = USUARIOS.find(x => x.usuario === saved);
+    const found = getUsuarios().find(x => x.usuario === saved);
     if (found) { usuarioActual = found; mostrarApp(); }
   }
   document.getElementById('input-pass').addEventListener('keydown', e => { if(e.key==='Enter') iniciarSesion(); });
   document.getElementById('input-user').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('input-pass').focus(); });
+  document.getElementById('reg-pass2').addEventListener('keydown', e => { if(e.key==='Enter') registrarUsuario(); });
   document.addEventListener('click', e => {
     if (!e.target.closest('#avatar-btn') && !e.target.closest('#logout-menu'))
       document.getElementById('logout-menu').classList.remove('open');
   });
 });
- 
+
 function toggleMenu() { document.getElementById('logout-menu').classList.toggle('open'); }
- 
+
 // ── NAVEGACIÓN ──
 function goTo(s) {
   document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
@@ -523,7 +585,7 @@ function goTo(s) {
   if (s==='progreso') renderProgreso();
   if (s==='perfil') renderPerfil();
 }
- 
+
 // ── BUILD APP ──
 function buildApp() {
   buildMoodGrid();
@@ -532,7 +594,6 @@ function buildApp() {
   renderHistorial();
   renderStats();
   renderProgreso();
-  // restaurar mood del día si ya seleccionó
   const hoy = getUserData('mood_hoy');
   if (hoy && hoy.fecha === fechaHoy()) {
     const m = MOODS.find(x=>x.id===hoy.id);
@@ -545,14 +606,13 @@ function buildApp() {
     }
   }
 }
- 
+
 function fechaHoy() { return new Date().toISOString().slice(0,10); }
 function fechaHora() {
   const d = new Date();
-  return d.toLocaleDateString('es-CR', { day:'2-digit', month:'short', year:'numeric' }) +
-    ' ' + d.toLocaleTimeString('es-CR', { hour:'2-digit', minute:'2-digit' });
+  return d.toLocaleDateString('es-CR',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'});
 }
- 
+
 // ── MOODS ──
 function buildMoodGrid() {
   const grid = document.getElementById('mood-grid');
@@ -566,40 +626,29 @@ function buildMoodGrid() {
     grid.appendChild(btn);
   });
 }
- 
+
 function selMood(m) {
   document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('mood-'+m.id).classList.add('selected');
   document.getElementById('sesion-texto').textContent = m.sesion;
   document.getElementById('sesion-card').style.display = 'block';
- 
-  // guardar mood
-  const registro = { id: m.id, label: m.label, emoji: m.emoji, sesion: m.sesion, fecha: fechaHoy(), hora: fechaHora() };
+  const registro = { id:m.id, label:m.label, emoji:m.emoji, sesion:m.sesion, fecha:fechaHoy(), hora:fechaHora() };
   setUserData('mood_hoy', registro);
- 
-  // agregar al historial
   let historial = getUserData('historial') || [];
-  // si ya hay uno hoy, reemplazarlo
-  historial = historial.filter(x => x.fecha !== fechaHoy());
+  historial = historial.filter(x=>x.fecha!==fechaHoy());
   historial.unshift(registro);
-  if (historial.length > 30) historial = historial.slice(0, 30);
+  if (historial.length>30) historial = historial.slice(0,30);
   setUserData('historial', historial);
- 
-  renderHistorial();
-  renderStats();
-  renderProgreso();
+  renderHistorial(); renderStats(); renderProgreso();
   showToast(`Estado guardado: ${m.emoji} ${m.label}`);
 }
- 
+
 function renderHistorial() {
   const lista = document.getElementById('historial-lista');
   if (!lista) return;
   const historial = getUserData('historial') || [];
-  if (!historial.length) {
-    lista.innerHTML = '<div class="empty-state">Aún no registraste ningún estado 💭</div>';
-    return;
-  }
-  lista.innerHTML = historial.slice(0,7).map(h => `
+  if (!historial.length) { lista.innerHTML = '<div class="empty-state">Aún no registraste ningún estado 💭</div>'; return; }
+  lista.innerHTML = historial.slice(0,7).map(h=>`
     <div class="historial-item">
       <span class="historial-emoji">${h.emoji}</span>
       <div class="historial-info">
@@ -609,7 +658,7 @@ function renderHistorial() {
       </div>
     </div>`).join('');
 }
- 
+
 // ── CABINAS ──
 function buildCabinas() {
   const cl = document.getElementById('cabinas-list');
@@ -637,43 +686,33 @@ function buildCabinas() {
     cl.appendChild(el);
   });
 }
- 
+
 function selDuracion(min, el) {
   duracionSel = min;
   document.querySelectorAll('.duracion-btn').forEach(b=>b.classList.remove('selected'));
   el.classList.add('selected');
 }
- 
+
 function confirmarReserva() {
   if (!cabinaSel) return;
   const cabina = CABINAS.find(c=>c.id===cabinaSel);
   const precio = duracionSel===15 ? '₡2,000' : '₡3,500';
-  const reserva = { cabina: cabina.nombre, ubicacion: cabina.ubicacion, duracion: duracionSel, precio, fecha: fechaHora() };
- 
+  const reserva = { cabina:cabina.nombre, ubicacion:cabina.ubicacion, duracion:duracionSel, precio, fecha:fechaHora() };
   let reservas = getUserData('reservas') || [];
   reservas.unshift(reserva);
-  if (reservas.length > 20) reservas = reservas.slice(0,20);
+  if (reservas.length>20) reservas = reservas.slice(0,20);
   setUserData('reservas', reservas);
- 
-  // actualizar stats
   let stats = getUserData('stats') || { sesiones:0, minutos:0 };
-  stats.sesiones += 1;
-  stats.minutos += duracionSel;
+  stats.sesiones += 1; stats.minutos += duracionSel;
   setUserData('stats', stats);
- 
-  // guardar día activo
-  let diasActivos = getUserData('dias_activos') || [];
-  if (!diasActivos.includes(fechaHoy())) diasActivos.push(fechaHoy());
-  setUserData('dias_activos', diasActivos);
- 
+  let dias = getUserData('dias_activos') || [];
+  if (!dias.includes(fechaHoy())) dias.push(fechaHoy());
+  setUserData('dias_activos', dias);
   const btn = document.getElementById('btn-confirmar');
   btn.textContent = '✓ Reserva confirmada'; btn.classList.add('success'); btn.disabled = true;
   document.getElementById('confirm-card').style.display = 'block';
   showToast(`🎉 Reservado: ${cabina.nombre} · ${duracionSel} min`);
-  renderReservas();
-  renderStats();
-  renderProgreso();
- 
+  renderReservas(); renderStats(); renderProgreso();
   setTimeout(() => {
     btn.textContent = 'Confirmar reserva'; btn.classList.remove('success'); btn.disabled = false;
     document.getElementById('confirm-card').style.display = 'none';
@@ -681,13 +720,13 @@ function confirmarReserva() {
     document.querySelectorAll('.cabina-card').forEach(c=>c.classList.remove('selected'));
   }, 3000);
 }
- 
+
 function renderReservas() {
   const lista = document.getElementById('reservas-lista');
   if (!lista) return;
   const reservas = getUserData('reservas') || [];
   if (!reservas.length) { lista.innerHTML = '<div class="empty-state">Aún no tenés reservas 📅</div>'; return; }
-  lista.innerHTML = reservas.slice(0,5).map(r => `
+  lista.innerHTML = reservas.slice(0,5).map(r=>`
     <div class="reserva-item">
       <div class="reserva-info">
         <div class="reserva-nombre">${r.cabina}</div>
@@ -696,12 +735,10 @@ function renderReservas() {
       <div class="reserva-fecha">${r.fecha}</div>
     </div>`).join('');
 }
- 
+
 // ── STATS ──
 function renderStats() {
   const stats = getUserData('stats') || { sesiones:0, minutos:0 };
-  const diasActivos = getUserData('dias_activos') || [];
- 
   const si = document.getElementById('stats-inicio');
   if (si) si.innerHTML = `
     <div class="stat-card" style="background:linear-gradient(135deg,rgba(0,184,148,0.25),rgba(0,184,148,0.1));border:1px solid rgba(0,184,148,0.3);">
@@ -713,11 +750,10 @@ function renderStats() {
       <div class="stat-label" style="color:#a29bfe;">minutos</div>
     </div>`;
 }
- 
+
 function renderProgreso() {
   const stats = getUserData('stats') || { sesiones:0, minutos:0 };
-  const diasActivos = getUserData('dias_activos') || [];
- 
+  const dias = getUserData('dias_activos') || [];
   const sp = document.getElementById('stats-progreso');
   if (sp) sp.innerHTML = `
     <div class="stat-card" style="background:linear-gradient(135deg,rgba(108,92,231,0.3),rgba(108,92,231,0.1));border:1px solid rgba(108,92,231,0.3);">
@@ -729,97 +765,126 @@ function renderProgreso() {
       <div class="stat-label" style="color:#55efc4;">minutos</div>
     </div>
     <div class="stat-card" style="background:linear-gradient(135deg,rgba(225,112,85,0.3),rgba(225,112,85,0.1));border:1px solid rgba(225,112,85,0.3);">
-      <div class="stat-num" style="color:#fab1a0;">${diasActivos.length}</div>
+      <div class="stat-num" style="color:#fab1a0;">${dias.length}</div>
       <div class="stat-label" style="color:#fab1a0;">días activos</div>
     </div>`;
- 
-  // bar chart semanal basado en reservas reales
   const bc = document.getElementById('bar-chart');
   if (bc) {
     const reservas = getUserData('reservas') || [];
     const hoy = new Date();
     const semana = [];
-    for (let i=6; i>=0; i--) {
+    for (let i=6;i>=0;i--) {
       const d = new Date(hoy); d.setDate(hoy.getDate()-i);
       const key = d.toISOString().slice(0,10);
-      const diaNom = DIAS_SEMANA[d.getDay()];
-      const count = reservas.filter(r => r.fecha && r.fecha.includes(key.slice(8,10))).length;
-      semana.push({ dia: diaNom, sesiones: count });
+      semana.push({ dia:DIAS_SEMANA[d.getDay()], sesiones:reservas.filter(r=>r.fecha&&r.fecha.includes(key.slice(8,10))).length });
     }
-    // usar historial de días activos para contar mejor
-    const max = Math.max(...semana.map(d=>d.sesiones), 1);
-    bc.innerHTML = semana.map(d => {
-      const pct = (d.sesiones/max)*100;
-      const color = d.sesiones===Math.max(...semana.map(x=>x.sesiones))&&d.sesiones>0 ? 'var(--purple)' : 'rgba(162,155,254,0.35)';
-      return `<div class="bar-col">
-        <div class="bar-bg"><div class="bar-fill" style="height:${pct}%;background:${color};"></div></div>
-        <span class="bar-dia">${d.dia}</span>
-        ${d.sesiones>0?`<span class="bar-num">${d.sesiones}</span>`:''}
-      </div>`;
+    const max = Math.max(...semana.map(d=>d.sesiones),1);
+    bc.innerHTML = semana.map(d=>{
+      const pct=(d.sesiones/max)*100;
+      const color=d.sesiones===Math.max(...semana.map(x=>x.sesiones))&&d.sesiones>0?'var(--purple)':'rgba(162,155,254,0.35)';
+      return `<div class="bar-col"><div class="bar-bg"><div class="bar-fill" style="height:${pct}%;background:${color};"></div></div><span class="bar-dia">${d.dia}</span>${d.sesiones>0?`<span class="bar-num">${d.sesiones}</span>`:''}</div>`;
     }).join('');
   }
- 
-  // mood frecuente
   const mf = document.getElementById('mood-frecuente');
   if (mf) {
     const historial = getUserData('historial') || [];
     const conteo = {};
-    historial.forEach(h => { conteo[h.id] = (conteo[h.id]||0)+1; });
-    const sorted = MOODS.map(m => ({ ...m, count: conteo[m.id]||0 })).sort((a,b)=>b.count-a.count).slice(0,3);
-    const maxC = sorted[0]?.count || 1;
-    if (!sorted[0]?.count) {
-      mf.innerHTML = '<div class="empty-state">Registrá tu estado para ver estadísticas 📊</div>';
-    } else {
-      mf.innerHTML = sorted.map(m => `
-        <div class="mood-bar-row">
-          <span class="mood-bar-emoji">${m.emoji}</span>
-          <span class="mood-bar-label">${m.label}</span>
-          <div class="mood-bar-bg"><div class="mood-bar-fill" style="width:${(m.count/maxC)*100}%;background:${m.color};"></div></div>
-          <span class="mood-bar-count" style="color:${m.color}">${m.count}x</span>
-        </div>`).join('');
-    }
+    historial.forEach(h=>{conteo[h.id]=(conteo[h.id]||0)+1;});
+    const sorted = MOODS.map(m=>({...m,count:conteo[m.id]||0})).sort((a,b)=>b.count-a.count).slice(0,3);
+    const maxC = sorted[0]?.count||1;
+    mf.innerHTML = !sorted[0]?.count ? '<div class="empty-state">Registrá tu estado para ver estadísticas 📊</div>'
+      : sorted.map(m=>`<div class="mood-bar-row"><span class="mood-bar-emoji">${m.emoji}</span><span class="mood-bar-label">${m.label}</span><div class="mood-bar-bg"><div class="mood-bar-fill" style="width:${(m.count/maxC)*100}%;background:${m.color};"></div></div><span class="mood-bar-count" style="color:${m.color}">${m.count}x</span></div>`).join('');
   }
 }
- 
-// ── VER MAPA CABINA ──
+
+// ── MAPA CABINA ──
 function verMapa(id) {
   const c = CABINAS.find(x=>x.id===id);
-  const msg = `📍 ${c.nombre}\n🏢 ${c.ubicacion}\n🔢 ${c.piso}\nℹ️ ${c.referencia}\n📌 Coordenadas: ${c.coords}`;
-  alert(msg);
+  alert(`📍 ${c.nombre}\n🏢 ${c.ubicacion}\n🔢 ${c.piso}\nℹ️ ${c.referencia}\n📌 Coordenadas: ${c.coords}`);
 }
- 
+
 // ── PERFIL MÉDICO ──
 function renderPerfil() {
   const p = getUserData('perfil_medico') || {};
   document.getElementById('perfil-avatar-big').textContent = document.getElementById('avatar-initials').textContent;
   document.getElementById('perfil-nombre-txt').textContent = usuarioActual.nombre;
   document.getElementById('perfil-usuario-txt').textContent = '@' + usuarioActual.usuario;
- 
   if (p.edad) document.getElementById('med-edad').value = p.edad;
   if (p.sexo) document.getElementById('med-sexo').value = p.sexo;
   if (p.contacto) document.getElementById('med-contacto').value = p.contacto;
   if (p.sangre) document.getElementById('med-sangre').value = p.sangre;
   if (p.notas) document.getElementById('med-notas').value = p.notas;
- 
-  renderTags('alergias', p.alergias || []);
-  renderTags('medicamentos', p.medicamentos || []);
-  renderTags('condiciones', p.condiciones || []);
- 
-  // enter en inputs de tags
-  ['input-alergia','input-medicamento','input-condicion'].forEach((id, i) => {
-    const tipos = ['alergias','medicamentos','condiciones'];
-    const el = document.getElementById(id);
-    el.onkeydown = e => { if(e.key==='Enter') addTag(tipos[i], id); };
+  renderTags('alergias', p.alergias||[]);
+  renderTags('medicamentos', p.medicamentos||[]);
+  renderTags('condiciones', p.condiciones||[]);
+  ['input-alergia','input-medicamento','input-condicion'].forEach((id,i)=>{
+    const tipos=['alergias','medicamentos','condiciones'];
+    document.getElementById(id).onkeydown = e => { if(e.key==='Enter') addTag(tipos[i],id); };
   });
+  renderPlanPerfil();
 }
- 
+
+function renderPlanPerfil() {
+  const planData = getUserData('plan_data') || null;
+  const el = document.getElementById('plan-info-perfil');
+  if (!el) return;
+
+  if (!planData) {
+    el.innerHTML = `
+      <div class="empty-state" style="padding:12px;">Sin plan activo</div>
+      <button class="btn-primary mt16" onclick="goTo('progreso')">Ver planes disponibles →</button>`;
+    return;
+  }
+
+  const vencimiento = new Date(planData.vence);
+  const hoy = new Date();
+  const diasRestantes = Math.ceil((vencimiento - hoy) / (1000*60*60*24));
+  const activo = diasRestantes > 0;
+  const color = activo ? '#55efc4' : '#fab1a0';
+  const estado = activo ? `✅ Activo · ${diasRestantes} días restantes` : '❌ Vencido';
+
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#fff;">${planData.nombre}</div>
+        <div style="font-size:12px;color:#888;margin-top:3px;">${planData.precio} · Vence: ${vencimiento.toLocaleDateString('es-CR')}</div>
+      </div>
+      <span style="font-size:12px;font-weight:700;color:${color};background:${color}22;padding:5px 10px;border-radius:99px;">${estado}</span>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button onclick="renovarPlan()" style="flex:1;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--purple),var(--purple-d));color:#fff;">🔄 Renovar plan</button>
+      <button onclick="cancelarPlan()" style="flex:1;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;background:rgba(225,112,85,0.15);color:#fab1a0;border:1px solid rgba(225,112,85,0.3);">❌ Cancelar</button>
+    </div>`;
+}
+
+function renovarPlan() {
+  const planData = getUserData('plan_data');
+  if (!planData) return;
+  const plan = PLANES.find(p=>p.nombre===planData.nombre);
+  if (!plan || plan.dias===0) return;
+  const nuevaFecha = new Date();
+  nuevaFecha.setDate(nuevaFecha.getDate() + plan.dias);
+  planData.vence = nuevaFecha.toISOString();
+  setUserData('plan_data', planData);
+  showToast(`✅ Plan renovado hasta ${nuevaFecha.toLocaleDateString('es-CR')}`);
+  renderPlanPerfil();
+}
+
+function cancelarPlan() {
+  if (!confirm('¿Seguro que querés cancelar tu plan? Se eliminará al vencer.')) return;
+  setUserData('plan_data', null);
+  setUserData('plan', null);
+  showToast('Plan cancelado');
+  renderPlanPerfil();
+}
+
 function renderTags(tipo, lista) {
   const cont = document.getElementById('tags-'+tipo);
-  cont.innerHTML = lista.length ? lista.map((t,i) =>
+  cont.innerHTML = lista.length ? lista.map((t,i)=>
     `<span class="tag">${t}<span class="tag-x" onclick="removeTag('${tipo}',${i})">×</span></span>`
   ).join('') : '<span style="color:#555;font-size:13px;">Sin registros</span>';
 }
- 
+
 function addTag(tipo, inputId) {
   const input = document.getElementById(inputId);
   const val = input.value.trim();
@@ -830,7 +895,7 @@ function addTag(tipo, inputId) {
   input.value = '';
   renderTags(tipo, p[tipo]);
 }
- 
+
 function removeTag(tipo, idx) {
   const p = getUserData('perfil_medico') || {};
   if (!p[tipo]) return;
@@ -838,7 +903,7 @@ function removeTag(tipo, idx) {
   setUserData('perfil_medico', p);
   renderTags(tipo, p[tipo]);
 }
- 
+
 function guardarPerfil() {
   const p = getUserData('perfil_medico') || {};
   p.edad = document.getElementById('med-edad').value;
@@ -849,15 +914,16 @@ function guardarPerfil() {
   setUserData('perfil_medico', p);
   showToast('✅ Perfil médico guardado');
 }
- 
+
 // ── PLANES ──
 function buildPlanes() {
   const pl = document.getElementById('planes-list');
   pl.innerHTML = '';
-  const planGuardado = getUserData('plan') || null;
+  const planData = getUserData('plan_data') || null;
   PLANES.forEach(p => {
     const el = document.createElement('div');
-    el.className = 'plan-card'+(p.destacado?' destacado':'')+(planGuardado===p.nombre?' selected':'');
+    const seleccionado = planData?.nombre === p.nombre;
+    el.className = 'plan-card'+(p.destacado?' destacado':'')+(seleccionado?' selected':'');
     el.innerHTML = `${p.destacado?'<div class="plan-badge">⭐ Más popular</div>':''}
       <div class="plan-row">
         <div><div class="plan-nombre">${p.nombre}</div><div class="plan-detalle">${p.detalle}</div></div>
@@ -866,16 +932,22 @@ function buildPlanes() {
     el.onclick = () => {
       document.querySelectorAll('.plan-card').forEach(x=>x.classList.remove('selected'));
       el.classList.add('selected');
+      // Guardar plan con fecha de vencimiento
+      const vence = new Date();
+      if (p.dias > 0) vence.setDate(vence.getDate() + p.dias);
+      const planData = { nombre:p.nombre, precio:p.precio, dias:p.dias, vence:vence.toISOString(), inicio: new Date().toISOString() };
+      setUserData('plan_data', planData);
       setUserData('plan', p.nombre);
       document.getElementById('btn-plan-wrap').style.display = 'block';
-      document.getElementById('btn-plan').textContent = `Suscribirme a ${p.nombre} →`;
-      showToast(`Plan seleccionado: ${p.nombre}`);
+      document.getElementById('btn-plan').textContent = `✅ Plan activo: ${p.nombre}`;
+      showToast(`Plan activado: ${p.nombre}`);
     };
     pl.appendChild(el);
   });
-  if (planGuardado) {
+  const planData2 = getUserData('plan_data');
+  if (planData2) {
     document.getElementById('btn-plan-wrap').style.display = 'block';
-    document.getElementById('btn-plan').textContent = `Suscribirme a ${planGuardado} →`;
+    document.getElementById('btn-plan').textContent = `✅ Plan activo: ${planData2.nombre}`;
   }
 }
 </script>
