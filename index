@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MoodBox</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:root {
+  --purple: #6C5CE7; --purple-l: #a29bfe; --purple-d: #4834d4;
+  --teal: #00b894; --teal-l: #55efc4;
+  --coral: #e17055; --coral-l: #fab1a0;
+  --blue: #0984e3; --blue-l: #74b9ff;
+  --pink: #fd79a8;
+  --dark: #1a1a2e; --gray: #636e72;
+  --bg: #0f0e17; --card: #1a1a2e; --card2: #16213e;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: #fff; min-height: 100vh; padding-bottom: 80px; overflow-x: hidden; }
+ 
+.blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; z-index: 0; }
+.blob1 { width: 300px; height: 300px; background: var(--purple); top: -80px; left: -80px; }
+.blob2 { width: 250px; height: 250px; background: var(--teal); bottom: 100px; right: -60px; }
+.blob3 { width: 200px; height: 200px; background: var(--coral); top: 40%; left: 30%; }
+ 
+/* LOGIN */
+#login-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; background: var(--bg); z-index: 999; }
+.login-glow { width: 100px; height: 100px; border-radius: 30px; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 44px; margin-bottom: 20px; box-shadow: 0 0 40px rgba(108,92,231,0.5); animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+.login-titulo { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; background: linear-gradient(90deg, var(--purple-l), var(--teal-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.login-sub { font-size: 14px; color: #888; margin-bottom: 36px; }
+.login-box { background: var(--card); border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); padding: 28px 24px; width: 100%; max-width: 360px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.input-label { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.input-field { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 13px 16px; font-size: 15px; color: #fff; margin-bottom: 18px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.input-field:focus { border-color: var(--purple-l); box-shadow: 0 0 0 3px rgba(108,92,231,0.2); }
+.input-field::placeholder { color: #555; }
+.login-error { color: var(--coral); font-size: 13px; margin-bottom: 12px; display: none; padding: 10px 12px; background: rgba(225,112,85,0.1); border-radius: 8px; }
+.btn-login { width: 100%; border: none; border-radius: 14px; padding: 15px; font-size: 15px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--purple), var(--purple-d)); color: #fff; box-shadow: 0 8px 24px rgba(108,92,231,0.4); transition: transform 0.15s; }
+.btn-login:active { transform: scale(0.97); }
+.login-hint { font-size: 12px; color: #555; margin-top: 18px; text-align: center; }
+.login-hint span { color: var(--purple-l); font-weight: 600; }
+ 
+/* TAB BAR */
+.tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22,33,62,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.06); display: flex; z-index: 100; height: 68px; padding: 0 8px; }
+.tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: none; background: none; cursor: pointer; padding: 8px 0; font-size: 10px; font-weight: 600; color: #555; transition: color 0.2s; letter-spacing: 0.3px; }
+.tab-btn.active { color: var(--purple-l); }
+.tab-btn .icon { font-size: 22px; }
+.tab-btn.active .tab-pill { background: rgba(162,155,254,0.15); border-radius: 12px; padding: 4px 16px; }
+ 
+/* APP */
+#app { display: none; position: relative; z-index: 1; }
+.screen { display: none; padding: 20px; max-width: 480px; margin: 0 auto; }
+.screen.active { display: block; }
+ 
+/* HEADER */
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.header-sub { font-size: 13px; color: #888; margin-bottom: 3px; }
+.header-title { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(90deg, #fff, var(--purple-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.avatar-btn { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; border: none; cursor: pointer; box-shadow: 0 4px 16px rgba(108,92,231,0.4); position: relative; }
+.logout-menu { position: absolute; top: 52px; right: 0; background: var(--card2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 8px; min-width: 180px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); z-index: 200; display: none; }
+.logout-menu.open { display: block; }
+.logout-menu-name { font-size: 13px; font-weight: 600; color: #ccc; padding: 8px 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 6px; }
+.logout-btn-menu { width: 100%; border: none; background: none; padding: 10px 12px; border-radius: 10px; font-size: 14px; color: var(--coral); font-weight: 600; cursor: pointer; text-align: left; transition: background 0.15s; }
+.logout-btn-menu:hover { background: rgba(225,112,85,0.12); }
+ 
+/* CARDS */
+.card { background: var(--card); border-radius: 20px; padding: 18px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.06); }
+.card-label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+ 
+/* MOODS */
+.mood-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.mood-btn { border-radius: 16px; padding: 14px 8px; border: 1.5px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; background: rgba(255,255,255,0.04); width: 100%; transition: transform 0.15s, border-color 0.15s; }
+.mood-btn:active { transform: scale(0.95); }
+.mood-btn.selected { border-width: 2px; transform: scale(1.04); }
+.mood-emoji { font-size: 26px; }
+.mood-label { font-size: 11px; font-weight: 700; }
+ 
+.sesion-card { border-radius: 20px; padding: 18px; margin-bottom: 14px; background: linear-gradient(135deg, rgba(108,92,231,0.25), rgba(0,184,148,0.15)); border: 1px solid rgba(108,92,231,0.4); position: relative; overflow: hidden; }
+.sesion-card::before { content:''; position: absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:rgba(108,92,231,0.2); }
+.sesion-label { font-size: 11px; font-weight: 700; color: var(--purple-l); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.sesion-texto { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+ 
+.stats-row { display: flex; gap: 10px; margin-bottom: 14px; }
+.stat-card { flex: 1; border-radius: 18px; padding: 16px 12px; text-align: center; position: relative; overflow: hidden; }
+.stat-num { font-size: 30px; font-weight: 800; }
+.stat-label { font-size: 11px; font-weight: 600; margin-top: 2px; opacity: 0.8; }
+ 
+.btn-primary { border: none; border-radius: 14px; padding: 15px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; color: #fff; background: linear-gradient(135deg, var(--purple), var(--purple-d)); box-shadow: 0 8px 24px rgba(108,92,231,0.35); transition: transform 0.15s; }
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.btn-primary.success { background: linear-gradient(135deg, var(--teal), #00cec9); box-shadow: 0 8px 24px rgba(0,184,148,0.35); }
+ 
+.page-title { font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+.seccion-label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+ 
+.cabina-card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.cabina-card.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.12); }
+.cabina-card.disabled { opacity: 0.45; cursor: not-allowed; }
+.cabina-nombre { font-size: 15px; font-weight: 700; color: #fff; }
+.cabina-ubicacion { font-size: 12px; color: #888; margin-top: 3px; }
+.badge { padding: 5px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; }
+ 
+.duracion-row { display: flex; gap: 10px; margin-bottom: 24px; }
+.duracion-btn { flex: 1; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); background: var(--card); text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.duracion-btn.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.15); }
+.duracion-min { font-size: 16px; font-weight: 800; color: #fff; }
+.duracion-precio { font-size: 13px; color: #888; margin-top: 4px; }
+.duracion-btn.selected .duracion-precio { color: var(--purple-l); }
+ 
+.confirm-card { border-radius: 16px; padding: 16px; margin-top: 14px; background: rgba(0,184,148,0.12); border: 1px solid rgba(0,184,148,0.3); }
+.confirm-titulo { color: var(--teal-l); font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.confirm-sub { color: #aaa; font-size: 13px; }
+ 
+.bar-chart { display: flex; justify-content: space-between; align-items: flex-end; height: 100px; margin-top: 8px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.bar-bg { width: 65%; height: 80px; display: flex; align-items: flex-end; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; }
+.bar-fill { width: 100%; border-radius: 6px; transition: height 0.6s ease; }
+.bar-dia { font-size: 11px; color: #666; font-weight: 600; }
+.bar-num { font-size: 10px; color: var(--purple-l); font-weight: 700; }
+ 
+.mood-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.mood-bar-emoji { font-size: 20px; flex-shrink: 0; }
+.mood-bar-label { width: 72px; font-size: 13px; font-weight: 600; color: #ccc; flex-shrink: 0; }
+.mood-bar-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+.mood-bar-fill { height: 100%; border-radius: 4px; }
+.mood-bar-count { width: 28px; font-size: 12px; font-weight: 700; text-align: right; flex-shrink: 0; }
+ 
+.plan-card { background: var(--card2); border-radius: 16px; padding: 16px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.07); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.plan-card.selected { border-color: var(--purple-l); background: rgba(108,92,231,0.12); }
+.plan-card.destacado { border-color: rgba(108,92,231,0.4); }
+.plan-badge { background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: 99px; padding: 3px 12px; display: inline-block; margin-bottom: 10px; font-size: 11px; color: #fff; font-weight: 700; }
+.plan-row { display: flex; justify-content: space-between; align-items: center; }
+.plan-nombre { font-size: 15px; font-weight: 700; color: #fff; }
+.plan-detalle { font-size: 12px; color: #888; margin-top: 3px; }
+.plan-precio { font-size: 17px; font-weight: 800; color: var(--purple-l); }
+ 
+/* HISTORIAL */
+.historial-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.historial-item:last-child { border-bottom: none; }
+.historial-emoji { font-size: 24px; flex-shrink: 0; }
+.historial-info { flex: 1; }
+.historial-mood { font-size: 14px; font-weight: 600; color: #fff; }
+.historial-fecha { font-size: 12px; color: #666; margin-top: 2px; }
+.historial-sesion { font-size: 12px; color: var(--purple-l); margin-top: 2px; }
+.empty-state { text-align: center; padding: 24px; color: #555; font-size: 14px; }
+ 
+.reserva-item { background: var(--card2); border-radius: 14px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
+.reserva-info .reserva-nombre { font-size: 14px; font-weight: 700; color: #fff; }
+.reserva-info .reserva-det { font-size: 12px; color: #888; margin-top: 3px; }
+.reserva-fecha { font-size: 11px; color: #555; text-align: right; }
+ 
+.toast { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-80px); background: linear-gradient(135deg,var(--teal),#00cec9); color: #fff; padding: 12px 24px; border-radius: 99px; font-size: 14px; font-weight: 700; z-index: 9999; transition: transform 0.35s cubic-bezier(.34,1.56,.64,1); white-space: nowrap; box-shadow: 0 8px 24px rgba(0,184,148,0.4); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+ 
+.mt16{margin-top:16px} .mt20{margin-top:20px}
+ 
+/* PERFIL MÉDICO */
+.perfil-avatar { width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; margin: 0 auto 16px; box-shadow: 0 8px 24px rgba(108,92,231,0.4); }
+.perfil-nombre { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 4px; }
+.perfil-usuario { font-size: 13px; color: #888; text-align: center; margin-bottom: 20px; }
+ 
+.med-field { margin-bottom: 14px; }
+.med-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.med-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: #fff; outline: none; transition: border-color 0.2s; }
+.med-input:focus { border-color: var(--purple-l); }
+.med-input::placeholder { color: #444; }
+select.med-input option { background: #1a1a2e; }
+.med-row { display: flex; gap: 10px; }
+.med-row .med-field { flex: 1; }
+ 
+.tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; min-height: 32px; }
+.tag { background: rgba(108,92,231,0.2); border: 1px solid rgba(108,92,231,0.4); border-radius: 99px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--purple-l); display: flex; align-items: center; gap: 6px; }
+.tag-x { cursor: pointer; color: #888; font-size: 14px; line-height: 1; }
+.tag-x:hover { color: var(--coral); }
+.tag-input-wrap { display: flex; gap: 8px; margin-top: 8px; }
+.tag-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #fff; outline: none; }
+.tag-input:focus { border-color: var(--purple-l); }
+.tag-add { background: var(--purple); border: none; border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 18px; cursor: pointer; font-weight: 700; }
+ 
+.alerta-medica { background: rgba(225,112,85,0.12); border: 1px solid rgba(225,112,85,0.3); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.alerta-icon { font-size: 20px; flex-shrink: 0; }
+.alerta-texto { font-size: 13px; color: #fab1a0; line-height: 1.5; }
+ 
+.cabina-detalle { font-size: 11px; color: #666; margin-top: 2px; }
+.cabina-mapa { font-size: 12px; color: var(--purple-l); margin-top: 4px; cursor: pointer; }
+ 
+.btn-guardar { background: linear-gradient(135deg, var(--teal), #00cec9); border: none; border-radius: 14px; padding: 15px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; color: #fff; box-shadow: 0 8px 24px rgba(0,184,148,0.35); transition: transform 0.15s; margin-top: 8px; }
+.btn-guardar:active { transform: scale(0.97); }
+ 
+.info-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.06); border-radius: 99px; padding: 5px 12px; font-size: 12px; color: #ccc; font-weight: 500; margin: 3px; }
+</style>
+</head>
+<body>
+ 
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+ 
+<div class="toast" id="toast"></div>
+ 
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-glow">🧠</div>
+  <div class="login-titulo">MoodBox</div>
+  <div class="login-sub">Tu espacio de bienestar emocional</div>
+  <div class="login-box">
+    <div class="input-label">Usuario</div>
+    <input class="input-field" id="input-user" type="text" placeholder="Ej: admin" autocomplete="username">
+    <div class="input-label">Contraseña</div>
+    <input class="input-field" id="input-pass" type="password" placeholder="••••••••" autocomplete="current-password">
+    <div class="login-error" id="login-error">⚠️ Usuario o contraseña incorrectos</div>
+    <button class="btn-login" onclick="iniciarSesion()">Entrar →</button>
+    <div class="login-hint">Demo: <span>admin</span> / <span>1234</span></div>
+  </div>
+</div>
+ 
+<!-- APP -->
+<div id="app">
+ 
+  <!-- INICIO -->
+  <div class="screen active" id="screen-inicio">
+    <div class="header">
+      <div>
+        <div class="header-sub" id="saludo-texto">Buenos días 👋</div>
+        <div class="header-title">MoodBox</div>
+      </div>
+      <div style="position:relative;">
+        <button class="avatar-btn" id="avatar-btn" onclick="toggleMenu()">
+          <span id="avatar-initials">TU</span>
+        </button>
+        <div class="logout-menu" id="logout-menu">
+          <div class="logout-menu-name" id="menu-username">Usuario</div>
+          <button class="logout-btn-menu" onclick="cerrarSesion()">🚪 Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-label">¿Cómo te sentís hoy?</div>
+      <div class="mood-grid" id="mood-grid"></div>
+    </div>
+ 
+    <div id="sesion-card" style="display:none;" class="sesion-card">
+      <div class="sesion-label">✨ Sesión recomendada</div>
+      <div class="sesion-texto" id="sesion-texto"></div>
+      <button class="btn-primary" onclick="goTo('reservar')">Ir a reservar →</button>
+    </div>
+ 
+    <div class="stats-row" id="stats-inicio"></div>
+ 
+    <div class="card">
+      <div class="card-label">📋 Historial de estados</div>
+      <div id="historial-lista"></div>
+    </div>
+  </div>
+ 
+  <!-- RESERVAR -->
+  <div class="screen" id="screen-reservar">
+    <div class="page-title">Reservar cabina</div>
+    <div class="seccion-label">Cabinas disponibles</div>
+    <div id="cabinas-list"></div>
+    <div class="seccion-label mt20">Duración</div>
+    <div class="duracion-row">
+      <div class="duracion-btn selected" id="dur-15" onclick="selDuracion(15,this)">
+        <div class="duracion-min">15 min</div>
+        <div class="duracion-precio">₡2,000</div>
+      </div>
+      <div class="duracion-btn" id="dur-30" onclick="selDuracion(30,this)">
+        <div class="duracion-min">30 min</div>
+        <div class="duracion-precio">₡3,500</div>
+      </div>
+    </div>
+    <button class="btn-primary" id="btn-confirmar" onclick="confirmarReserva()" disabled>Confirmar reserva</button>
+    <div id="confirm-card" style="display:none;" class="confirm-card">
+      <div class="confirm-titulo">🎉 ¡Listo! Tu cabina te espera</div>
+      <div class="confirm-sub">Tenés 5 minutos para llegar antes de que se libere.</div>
+    </div>
+    <div class="card mt20">
+      <div class="card-label">📅 Mis reservas</div>
+      <div id="reservas-lista"></div>
+    </div>
+  </div>
+ 
+  <!-- PROGRESO -->
+  <div class="screen" id="screen-progreso">
+    <div class="page-title">Mi progreso</div>
+    <div class="stats-row" id="stats-progreso"></div>
+    <div class="card">
+      <div class="card-label">Esta semana</div>
+      <div class="bar-chart" id="bar-chart"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Estado más frecuente</div>
+      <div id="mood-frecuente"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Planes disponibles</div>
+      <div id="planes-list"></div>
+      <div id="btn-plan-wrap" style="display:none;" class="mt16">
+        <button class="btn-primary" id="btn-plan">Suscribirme →</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- PERFIL MÉDICO -->
+  <div class="screen" id="screen-perfil">
+    <div class="page-title">Perfil médico</div>
+ 
+    <div class="card">
+      <div class="perfil-avatar" id="perfil-avatar-big">TU</div>
+      <div class="perfil-nombre" id="perfil-nombre-txt">Usuario</div>
+      <div class="perfil-usuario" id="perfil-usuario-txt">@usuario</div>
+ 
+      <div class="med-row">
+        <div class="med-field">
+          <div class="med-label">🎂 Edad</div>
+          <input class="med-input" id="med-edad" type="number" placeholder="Ej: 22" min="1" max="120">
+        </div>
+        <div class="med-field">
+          <div class="med-label">⚧ Sexo</div>
+          <select class="med-input" id="med-sexo">
+            <option value="">Seleccionar</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+            <option value="Prefiero no decir">Prefiero no decir</option>
+          </select>
+        </div>
+      </div>
+ 
+      <div class="med-field">
+        <div class="med-label">📱 Contacto de emergencia</div>
+        <input class="med-input" id="med-contacto" type="text" placeholder="Nombre · Teléfono">
+      </div>
+ 
+      <div class="med-field">
+        <div class="med-label">🩸 Tipo de sangre</div>
+        <select class="med-input" id="med-sangre">
+          <option value="">Desconocido</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option>
+          <option>O+</option><option>O-</option>
+        </select>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-label">🚨 Alergias</div>
+      <div class="tag-container" id="tags-alergias"></div>
+      <div class="tag-input-wrap">
+        <input class="tag-input" id="input-alergia" placeholder="Ej: Penicilina, Polen...">
+        <button class="tag-add" onclick="addTag('alergias','input-alergia')">+</button>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-label">💊 Medicamentos actuales</div>
+      <div class="tag-container" id="tags-medicamentos"></div>
+      <div class="tag-input-wrap">
+        <input class="tag-input" id="input-medicamento" placeholder="Ej: Sertralina 50mg...">
+        <button class="tag-add" onclick="addTag('medicamentos','input-medicamento')">+</button>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-label">🏥 Condiciones médicas</div>
+      <div class="tag-container" id="tags-condiciones"></div>
+      <div class="tag-input-wrap">
+        <input class="tag-input" id="input-condicion" placeholder="Ej: Ansiedad, Diabetes...">
+        <button class="tag-add" onclick="addTag('condiciones','input-condicion')">+</button>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-label">📝 Notas médicas adicionales</div>
+      <textarea class="med-input" id="med-notas" rows="3" placeholder="Información adicional para el personal de salud..."></textarea>
+    </div>
+ 
+    <button class="btn-guardar" onclick="guardarPerfil()">💾 Guardar perfil médico</button>
+    <div style="height:16px;"></div>
+  </div>
+ 
+  <!-- CABINAS MAP -->
+  <div class="screen" id="screen-cabinas">
+    <div class="page-title">📍 Ubicación de cabinas</div>
+    <div id="mapa-cabinas"></div>
+  </div>
+ 
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="goTo('inicio')" id="tab-inicio">
+      <div class="tab-pill"><span class="icon">🏠</span></div><span>Inicio</span>
+    </button>
+    <button class="tab-btn" onclick="goTo('reservar')" id="tab-reservar">
+      <div class="tab-pill"><span class="icon">📅</span></div><span>Reservar</span>
+    </button>
+    <button class="tab-btn" onclick="goTo('progreso')" id="tab-progreso">
+      <div class="tab-pill"><span class="icon">📊</span></div><span>Progreso</span>
+    </button>
+    <button class="tab-btn" onclick="goTo('perfil')" id="tab-perfil">
+      <div class="tab-pill"><span class="icon">🏥</span></div><span>Médico</span>
+    </button>
+  </nav>
+</div>
+ 
+<script>
+// ── DATOS BASE ──
+const USUARIOS = [
+  { usuario:"admin",      pass:"1234",    nombre:"Administrador" },
+  { usuario:"estudiante", pass:"mood123", nombre:"Estudiante" },
+];
+const MOODS = [
+  { id:"estresado", label:"Estresado", emoji:"😤", bg:"rgba(225,112,85,0.18)",  border:"rgba(225,112,85,0.5)",  color:"#fab1a0", sesion:"Respiración 4-7-8 · 15 min" },
+  { id:"ansioso",   label:"Ansioso",   emoji:"😰", bg:"rgba(9,132,227,0.18)",   border:"rgba(9,132,227,0.5)",   color:"#74b9ff", sesion:"Meditación guiada · 15 min" },
+  { id:"agotado",   label:"Agotado",   emoji:"😴", bg:"rgba(108,92,231,0.18)",  border:"rgba(108,92,231,0.5)",  color:"#a29bfe", sesion:"Relajación muscular · 30 min" },
+  { id:"calma",     label:"En calma",  emoji:"😌", bg:"rgba(0,184,148,0.18)",   border:"rgba(0,184,148,0.5)",   color:"#55efc4", sesion:"Mindfulness · 15 min" },
+  { id:"triste",    label:"Triste",    emoji:"😢", bg:"rgba(253,121,168,0.18)", border:"rgba(253,121,168,0.5)", color:"#fd79a8", sesion:"Sonidos de naturaleza · 30 min" },
+  { id:"bien",      label:"Bien",      emoji:"😊", bg:"rgba(0,184,148,0.18)",   border:"rgba(85,239,196,0.5)",  color:"#00b894", sesion:"Energización · 15 min" },
+];
+const CABINAS = [
+  { id:"A", nombre:"Cabina A", ubicacion:"Biblioteca Central", piso:"Planta baja", referencia:"Junto a la entrada principal, al lado de los casilleros", coords:"10.3376° N, 84.4380° W", libre:true },
+  { id:"B", nombre:"Cabina B", ubicacion:"Edificio 3 · Bienestar", piso:"2do piso", referencia:"Sube las escaleras principales, dobla a la izquierda, puerta azul", coords:"10.3379° N, 84.4382° W", libre:false, tiempo:"8 min" },
+  { id:"C", nombre:"Cabina C", ubicacion:"Cafetería Central", piso:"Planta baja", referencia:"Al fondo derecho de la cafetería, cerca de las ventanas", coords:"10.3372° N, 84.4378° W", libre:true },
+];
+const PLANES = [
+  { nombre:"Sesión suelta",       precio:"₡2,000",   detalle:"15 minutos · pago único",  destacado:false },
+  { nombre:"Suscripción semanal", precio:"₡7,500",   detalle:"Acceso ilimitado 7 días",  destacado:false },
+  { nombre:"Suscripción mensual", precio:"₡25,000",  detalle:"Acceso ilimitado 30 días", destacado:true  },
+  { nombre:"Suscripción anual",   precio:"₡220,000", detalle:"El mejor valor del año",   destacado:false },
+];
+const DIAS_SEMANA = ["D","L","M","X","J","V","S"];
+ 
+// ── STORAGE ──
+function getData(key) { try { return JSON.parse(localStorage.getItem(key)) || null; } catch{ return null; } }
+function setData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+ 
+function getUserKey(key) { return `mb_${usuarioActual.usuario}_${key}`; }
+function getUserData(key) { return getData(getUserKey(key)); }
+function setUserData(key, val) { setData(getUserKey(key), val); }
+ 
+// ── ESTADO ──
+let usuarioActual = null, cabinaSel = null, duracionSel = 15;
+ 
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+ 
+// ── SALUDO ──
+function getSaludo() {
+  const h = new Date().getHours();
+  if (h < 12) return 'Buenos días 👋';
+  if (h < 19) return 'Buenas tardes 👋';
+  return 'Buenas noches 👋';
+}
+ 
+// ── LOGIN ──
+function iniciarSesion() {
+  const u = document.getElementById('input-user').value.trim();
+  const p = document.getElementById('input-pass').value;
+  const found = USUARIOS.find(x => x.usuario === u && x.pass === p);
+  if (!found) { document.getElementById('login-error').style.display = 'block'; return; }
+  usuarioActual = found;
+  setData('mb_session', found.usuario);
+  document.getElementById('login-error').style.display = 'none';
+  mostrarApp();
+}
+ 
+function mostrarApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  const ini = usuarioActual.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('avatar-initials').textContent = ini;
+  document.getElementById('menu-username').textContent = usuarioActual.nombre;
+  document.getElementById('saludo-texto').textContent = getSaludo();
+  buildApp();
+}
+ 
+function cerrarSesion() {
+  setData('mb_session', null);
+  usuarioActual = null; cabinaSel = null; duracionSel = 15;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('input-user').value = '';
+  document.getElementById('input-pass').value = '';
+  document.getElementById('logout-menu').classList.remove('open');
+  // reset UI
+  document.getElementById('mood-grid').innerHTML = '';
+  document.getElementById('cabinas-list').innerHTML = '';
+  document.getElementById('bar-chart').innerHTML = '';
+  document.getElementById('planes-list').innerHTML = '';
+  document.getElementById('sesion-card').style.display = 'none';
+  goTo('inicio');
+}
+ 
+// Auto-login si hay sesión guardada
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = getData('mb_session');
+  if (saved) {
+    const found = USUARIOS.find(x => x.usuario === saved);
+    if (found) { usuarioActual = found; mostrarApp(); }
+  }
+  document.getElementById('input-pass').addEventListener('keydown', e => { if(e.key==='Enter') iniciarSesion(); });
+  document.getElementById('input-user').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('input-pass').focus(); });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#avatar-btn') && !e.target.closest('#logout-menu'))
+      document.getElementById('logout-menu').classList.remove('open');
+  });
+});
+ 
+function toggleMenu() { document.getElementById('logout-menu').classList.toggle('open'); }
+ 
+// ── NAVEGACIÓN ──
+function goTo(s) {
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('screen-'+s).classList.add('active');
+  document.getElementById('tab-'+s).classList.add('active');
+  window.scrollTo(0,0);
+  if (s==='inicio') renderHistorial();
+  if (s==='reservar') { renderReservas(); buildCabinas(); }
+  if (s==='progreso') renderProgreso();
+  if (s==='perfil') renderPerfil();
+}
+ 
+// ── BUILD APP ──
+function buildApp() {
+  buildMoodGrid();
+  buildCabinas();
+  buildPlanes();
+  renderHistorial();
+  renderStats();
+  renderProgreso();
+  // restaurar mood del día si ya seleccionó
+  const hoy = getUserData('mood_hoy');
+  if (hoy && hoy.fecha === fechaHoy()) {
+    const m = MOODS.find(x=>x.id===hoy.id);
+    if (m) {
+      document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+      const btn = document.getElementById('mood-'+m.id);
+      if (btn) btn.classList.add('selected');
+      document.getElementById('sesion-texto').textContent = m.sesion;
+      document.getElementById('sesion-card').style.display = 'block';
+    }
+  }
+}
+ 
+function fechaHoy() { return new Date().toISOString().slice(0,10); }
+function fechaHora() {
+  const d = new Date();
+  return d.toLocaleDateString('es-CR', { day:'2-digit', month:'short', year:'numeric' }) +
+    ' ' + d.toLocaleTimeString('es-CR', { hour:'2-digit', minute:'2-digit' });
+}
+ 
+// ── MOODS ──
+function buildMoodGrid() {
+  const grid = document.getElementById('mood-grid');
+  grid.innerHTML = '';
+  MOODS.forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'mood-btn'; btn.id = 'mood-'+m.id;
+    btn.style.background = m.bg; btn.style.borderColor = m.border;
+    btn.innerHTML = `<span class="mood-emoji">${m.emoji}</span><span class="mood-label" style="color:${m.color}">${m.label}</span>`;
+    btn.onclick = () => selMood(m);
+    grid.appendChild(btn);
+  });
+}
+ 
+function selMood(m) {
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('mood-'+m.id).classList.add('selected');
+  document.getElementById('sesion-texto').textContent = m.sesion;
+  document.getElementById('sesion-card').style.display = 'block';
+ 
+  // guardar mood
+  const registro = { id: m.id, label: m.label, emoji: m.emoji, sesion: m.sesion, fecha: fechaHoy(), hora: fechaHora() };
+  setUserData('mood_hoy', registro);
+ 
+  // agregar al historial
+  let historial = getUserData('historial') || [];
+  // si ya hay uno hoy, reemplazarlo
+  historial = historial.filter(x => x.fecha !== fechaHoy());
+  historial.unshift(registro);
+  if (historial.length > 30) historial = historial.slice(0, 30);
+  setUserData('historial', historial);
+ 
+  renderHistorial();
+  renderStats();
+  renderProgreso();
+  showToast(`Estado guardado: ${m.emoji} ${m.label}`);
+}
+ 
+function renderHistorial() {
+  const lista = document.getElementById('historial-lista');
+  if (!lista) return;
+  const historial = getUserData('historial') || [];
+  if (!historial.length) {
+    lista.innerHTML = '<div class="empty-state">Aún no registraste ningún estado 💭</div>';
+    return;
+  }
+  lista.innerHTML = historial.slice(0,7).map(h => `
+    <div class="historial-item">
+      <span class="historial-emoji">${h.emoji}</span>
+      <div class="historial-info">
+        <div class="historial-mood">${h.label}</div>
+        <div class="historial-fecha">${h.hora}</div>
+        <div class="historial-sesion">${h.sesion}</div>
+      </div>
+    </div>`).join('');
+}
+ 
+// ── CABINAS ──
+function buildCabinas() {
+  const cl = document.getElementById('cabinas-list');
+  cl.innerHTML = '';
+  CABINAS.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'cabina-card'+(c.libre?'':' disabled'); el.id='cabina-'+c.id;
+    const badgeBg = c.libre ? 'rgba(0,184,148,0.2)' : 'rgba(225,112,85,0.15)';
+    const badgeColor = c.libre ? '#55efc4' : '#fab1a0';
+    const badgeText = c.libre ? '🟢 Libre' : `🔴 En uso · ${c.tiempo}`;
+    el.innerHTML = `
+      <div style="flex:1;">
+        <div class="cabina-nombre">${c.nombre}</div>
+        <div class="cabina-ubicacion">📍 ${c.ubicacion} · ${c.piso}</div>
+        <div class="cabina-detalle">ℹ️ ${c.referencia}</div>
+        <div class="cabina-mapa" onclick="event.stopPropagation();verMapa('${c.id}')">🗺️ Ver cómo llegar</div>
+      </div>
+      <span class="badge" style="background:${badgeBg};color:${badgeColor};margin-left:10px;white-space:nowrap;">${badgeText}</span>`;
+    if (c.libre) el.onclick = () => {
+      cabinaSel = c.id;
+      document.querySelectorAll('.cabina-card').forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('btn-confirmar').disabled = false;
+    };
+    cl.appendChild(el);
+  });
+}
+ 
+function selDuracion(min, el) {
+  duracionSel = min;
+  document.querySelectorAll('.duracion-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+ 
+function confirmarReserva() {
+  if (!cabinaSel) return;
+  const cabina = CABINAS.find(c=>c.id===cabinaSel);
+  const precio = duracionSel===15 ? '₡2,000' : '₡3,500';
+  const reserva = { cabina: cabina.nombre, ubicacion: cabina.ubicacion, duracion: duracionSel, precio, fecha: fechaHora() };
+ 
+  let reservas = getUserData('reservas') || [];
+  reservas.unshift(reserva);
+  if (reservas.length > 20) reservas = reservas.slice(0,20);
+  setUserData('reservas', reservas);
+ 
+  // actualizar stats
+  let stats = getUserData('stats') || { sesiones:0, minutos:0 };
+  stats.sesiones += 1;
+  stats.minutos += duracionSel;
+  setUserData('stats', stats);
+ 
+  // guardar día activo
+  let diasActivos = getUserData('dias_activos') || [];
+  if (!diasActivos.includes(fechaHoy())) diasActivos.push(fechaHoy());
+  setUserData('dias_activos', diasActivos);
+ 
+  const btn = document.getElementById('btn-confirmar');
+  btn.textContent = '✓ Reserva confirmada'; btn.classList.add('success'); btn.disabled = true;
+  document.getElementById('confirm-card').style.display = 'block';
+  showToast(`🎉 Reservado: ${cabina.nombre} · ${duracionSel} min`);
+  renderReservas();
+  renderStats();
+  renderProgreso();
+ 
+  setTimeout(() => {
+    btn.textContent = 'Confirmar reserva'; btn.classList.remove('success'); btn.disabled = false;
+    document.getElementById('confirm-card').style.display = 'none';
+    cabinaSel = null;
+    document.querySelectorAll('.cabina-card').forEach(c=>c.classList.remove('selected'));
+  }, 3000);
+}
+ 
+function renderReservas() {
+  const lista = document.getElementById('reservas-lista');
+  if (!lista) return;
+  const reservas = getUserData('reservas') || [];
+  if (!reservas.length) { lista.innerHTML = '<div class="empty-state">Aún no tenés reservas 📅</div>'; return; }
+  lista.innerHTML = reservas.slice(0,5).map(r => `
+    <div class="reserva-item">
+      <div class="reserva-info">
+        <div class="reserva-nombre">${r.cabina}</div>
+        <div class="reserva-det">${r.ubicacion} · ${r.duracion} min · ${r.precio}</div>
+      </div>
+      <div class="reserva-fecha">${r.fecha}</div>
+    </div>`).join('');
+}
+ 
+// ── STATS ──
+function renderStats() {
+  const stats = getUserData('stats') || { sesiones:0, minutos:0 };
+  const diasActivos = getUserData('dias_activos') || [];
+ 
+  const si = document.getElementById('stats-inicio');
+  if (si) si.innerHTML = `
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(0,184,148,0.25),rgba(0,184,148,0.1));border:1px solid rgba(0,184,148,0.3);">
+      <div class="stat-num" style="color:#55efc4;">${stats.sesiones}</div>
+      <div class="stat-label" style="color:#55efc4;">sesiones</div>
+    </div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(108,92,231,0.25),rgba(108,92,231,0.1));border:1px solid rgba(108,92,231,0.3);">
+      <div class="stat-num" style="color:#a29bfe;">${stats.minutos}</div>
+      <div class="stat-label" style="color:#a29bfe;">minutos</div>
+    </div>`;
+}
+ 
+function renderProgreso() {
+  const stats = getUserData('stats') || { sesiones:0, minutos:0 };
+  const diasActivos = getUserData('dias_activos') || [];
+ 
+  const sp = document.getElementById('stats-progreso');
+  if (sp) sp.innerHTML = `
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(108,92,231,0.3),rgba(108,92,231,0.1));border:1px solid rgba(108,92,231,0.3);">
+      <div class="stat-num" style="color:#a29bfe;">${stats.sesiones}</div>
+      <div class="stat-label" style="color:#a29bfe;">sesiones</div>
+    </div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(0,184,148,0.3),rgba(0,184,148,0.1));border:1px solid rgba(0,184,148,0.3);">
+      <div class="stat-num" style="color:#55efc4;">${stats.minutos}</div>
+      <div class="stat-label" style="color:#55efc4;">minutos</div>
+    </div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(225,112,85,0.3),rgba(225,112,85,0.1));border:1px solid rgba(225,112,85,0.3);">
+      <div class="stat-num" style="color:#fab1a0;">${diasActivos.length}</div>
+      <div class="stat-label" style="color:#fab1a0;">días activos</div>
+    </div>`;
+ 
+  // bar chart semanal basado en reservas reales
+  const bc = document.getElementById('bar-chart');
+  if (bc) {
+    const reservas = getUserData('reservas') || [];
+    const hoy = new Date();
+    const semana = [];
+    for (let i=6; i>=0; i--) {
+      const d = new Date(hoy); d.setDate(hoy.getDate()-i);
+      const key = d.toISOString().slice(0,10);
+      const diaNom = DIAS_SEMANA[d.getDay()];
+      const count = reservas.filter(r => r.fecha && r.fecha.includes(key.slice(8,10))).length;
+      semana.push({ dia: diaNom, sesiones: count });
+    }
+    // usar historial de días activos para contar mejor
+    const max = Math.max(...semana.map(d=>d.sesiones), 1);
+    bc.innerHTML = semana.map(d => {
+      const pct = (d.sesiones/max)*100;
+      const color = d.sesiones===Math.max(...semana.map(x=>x.sesiones))&&d.sesiones>0 ? 'var(--purple)' : 'rgba(162,155,254,0.35)';
+      return `<div class="bar-col">
+        <div class="bar-bg"><div class="bar-fill" style="height:${pct}%;background:${color};"></div></div>
+        <span class="bar-dia">${d.dia}</span>
+        ${d.sesiones>0?`<span class="bar-num">${d.sesiones}</span>`:''}
+      </div>`;
+    }).join('');
+  }
+ 
+  // mood frecuente
+  const mf = document.getElementById('mood-frecuente');
+  if (mf) {
+    const historial = getUserData('historial') || [];
+    const conteo = {};
+    historial.forEach(h => { conteo[h.id] = (conteo[h.id]||0)+1; });
+    const sorted = MOODS.map(m => ({ ...m, count: conteo[m.id]||0 })).sort((a,b)=>b.count-a.count).slice(0,3);
+    const maxC = sorted[0]?.count || 1;
+    if (!sorted[0]?.count) {
+      mf.innerHTML = '<div class="empty-state">Registrá tu estado para ver estadísticas 📊</div>';
+    } else {
+      mf.innerHTML = sorted.map(m => `
+        <div class="mood-bar-row">
+          <span class="mood-bar-emoji">${m.emoji}</span>
+          <span class="mood-bar-label">${m.label}</span>
+          <div class="mood-bar-bg"><div class="mood-bar-fill" style="width:${(m.count/maxC)*100}%;background:${m.color};"></div></div>
+          <span class="mood-bar-count" style="color:${m.color}">${m.count}x</span>
+        </div>`).join('');
+    }
+  }
+}
+ 
+// ── VER MAPA CABINA ──
+function verMapa(id) {
+  const c = CABINAS.find(x=>x.id===id);
+  const msg = `📍 ${c.nombre}\n🏢 ${c.ubicacion}\n🔢 ${c.piso}\nℹ️ ${c.referencia}\n📌 Coordenadas: ${c.coords}`;
+  alert(msg);
+}
+ 
+// ── PERFIL MÉDICO ──
+function renderPerfil() {
+  const p = getUserData('perfil_medico') || {};
+  document.getElementById('perfil-avatar-big').textContent = document.getElementById('avatar-initials').textContent;
+  document.getElementById('perfil-nombre-txt').textContent = usuarioActual.nombre;
+  document.getElementById('perfil-usuario-txt').textContent = '@' + usuarioActual.usuario;
+ 
+  if (p.edad) document.getElementById('med-edad').value = p.edad;
+  if (p.sexo) document.getElementById('med-sexo').value = p.sexo;
+  if (p.contacto) document.getElementById('med-contacto').value = p.contacto;
+  if (p.sangre) document.getElementById('med-sangre').value = p.sangre;
+  if (p.notas) document.getElementById('med-notas').value = p.notas;
+ 
+  renderTags('alergias', p.alergias || []);
+  renderTags('medicamentos', p.medicamentos || []);
+  renderTags('condiciones', p.condiciones || []);
+ 
+  // enter en inputs de tags
+  ['input-alergia','input-medicamento','input-condicion'].forEach((id, i) => {
+    const tipos = ['alergias','medicamentos','condiciones'];
+    const el = document.getElementById(id);
+    el.onkeydown = e => { if(e.key==='Enter') addTag(tipos[i], id); };
+  });
+}
+ 
+function renderTags(tipo, lista) {
+  const cont = document.getElementById('tags-'+tipo);
+  cont.innerHTML = lista.length ? lista.map((t,i) =>
+    `<span class="tag">${t}<span class="tag-x" onclick="removeTag('${tipo}',${i})">×</span></span>`
+  ).join('') : '<span style="color:#555;font-size:13px;">Sin registros</span>';
+}
+ 
+function addTag(tipo, inputId) {
+  const input = document.getElementById(inputId);
+  const val = input.value.trim();
+  if (!val) return;
+  const p = getUserData('perfil_medico') || {};
+  if (!p[tipo]) p[tipo] = [];
+  if (!p[tipo].includes(val)) { p[tipo].push(val); setUserData('perfil_medico', p); }
+  input.value = '';
+  renderTags(tipo, p[tipo]);
+}
+ 
+function removeTag(tipo, idx) {
+  const p = getUserData('perfil_medico') || {};
+  if (!p[tipo]) return;
+  p[tipo].splice(idx, 1);
+  setUserData('perfil_medico', p);
+  renderTags(tipo, p[tipo]);
+}
+ 
+function guardarPerfil() {
+  const p = getUserData('perfil_medico') || {};
+  p.edad = document.getElementById('med-edad').value;
+  p.sexo = document.getElementById('med-sexo').value;
+  p.contacto = document.getElementById('med-contacto').value;
+  p.sangre = document.getElementById('med-sangre').value;
+  p.notas = document.getElementById('med-notas').value;
+  setUserData('perfil_medico', p);
+  showToast('✅ Perfil médico guardado');
+}
+ 
+// ── PLANES ──
+function buildPlanes() {
+  const pl = document.getElementById('planes-list');
+  pl.innerHTML = '';
+  const planGuardado = getUserData('plan') || null;
+  PLANES.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'plan-card'+(p.destacado?' destacado':'')+(planGuardado===p.nombre?' selected':'');
+    el.innerHTML = `${p.destacado?'<div class="plan-badge">⭐ Más popular</div>':''}
+      <div class="plan-row">
+        <div><div class="plan-nombre">${p.nombre}</div><div class="plan-detalle">${p.detalle}</div></div>
+        <div class="plan-precio">${p.precio}</div>
+      </div>`;
+    el.onclick = () => {
+      document.querySelectorAll('.plan-card').forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected');
+      setUserData('plan', p.nombre);
+      document.getElementById('btn-plan-wrap').style.display = 'block';
+      document.getElementById('btn-plan').textContent = `Suscribirme a ${p.nombre} →`;
+      showToast(`Plan seleccionado: ${p.nombre}`);
+    };
+    pl.appendChild(el);
+  });
+  if (planGuardado) {
+    document.getElementById('btn-plan-wrap').style.display = 'block';
+    document.getElementById('btn-plan').textContent = `Suscribirme a ${planGuardado} →`;
+  }
+}
+</script>
+</body>
+</html>
